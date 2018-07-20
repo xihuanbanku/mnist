@@ -29,6 +29,8 @@ object NaiveBayesExample {
     val spark = SparkSession
       .builder
       .appName("NaiveBayesExample")
+        .master("local")
+        .config("spark.testing.memory", 1024*1024*1024)
       .getOrCreate()
 
     // $example on$
@@ -44,6 +46,15 @@ object NaiveBayesExample {
 
     // Select example rows to display.
     val predictions = model.transform(testData)
+
+    // +-----+--------------------+--------------------+-----------+----------+
+    // |label|            features|       rawPrediction|probability|prediction|
+    // +-----+--------------------+--------------------+-----------+----------+
+    // |  0.0|(692,[95,96,97,12...|[-173678.60946628...|  [1.0,0.0]|       0.0|
+    // |  0.0|(692,[98,99,100,1...|[-178107.24302988...|  [1.0,0.0]|       0.0|
+    // |  1.0|(692,[99,100,101,...|[-145981.83877498...|  [0.0,1.0]|       1.0|
+    // |  1.0|(692,[100,101,102...|[-147685.13694275...|  [0.0,1.0]|       1.0|
+    // |  1.0|(692,[123,124,125...|[-139521.98499849...|  [0.0,1.0]|       1.0|
     predictions.show()
 
     // Select (prediction, true label) and compute test error

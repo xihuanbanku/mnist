@@ -4,7 +4,6 @@ import com.huaban.analysis.jieba.{JiebaSegmenter, SegToken}
 import com.huaban.analysis.jieba.JiebaSegmenter.SegMode
 import org.apache.spark.ml.feature.{HashingTF, IDF}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions._
 
 /**
   * Created by Administrator on 2018-07-19.

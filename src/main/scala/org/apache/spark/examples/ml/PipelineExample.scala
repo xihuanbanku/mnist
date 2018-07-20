@@ -32,6 +32,8 @@ object PipelineExample {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder
+        .master("local")
+        .config("spark.testing.memory", 1024*1024*1024)
       .appName("PipelineExample")
       .getOrCreate()
 

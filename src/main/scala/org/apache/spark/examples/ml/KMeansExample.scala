@@ -37,6 +37,8 @@ object KMeansExample {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder
+        .master("local")
+        .config("spark.testing.memory", 1024*1024*1024)
       .appName(s"${this.getClass.getSimpleName}")
       .getOrCreate()
 
@@ -44,6 +46,7 @@ object KMeansExample {
     // Loads data.
     val dataset = spark.read.format("libsvm").load("data/mllib/sample_kmeans_data.txt")
 
+    dataset.show(false)
     // Trains a k-means model.
     val kmeans = new KMeans().setK(2).setSeed(1L)
     val model = kmeans.fit(dataset)
